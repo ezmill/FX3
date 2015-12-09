@@ -5,6 +5,7 @@
                  "texture"  : { type: "t", value: null },
                  "origTex"  : { type: "t", value: null },
                  "alpha"  : { type: "t", value: null },
+                 "mask" : {type: "t", value: null},
                  "mouse"  : { type: "v2", value: null },
                  "resolution"  : { type: "v2", value: null },
                  "time"  : { type: "f", value: null },
@@ -12,7 +13,6 @@
 
              }
          ]);
-
          this.vertexShader = [
 
              "varying vec2 vUv;",
@@ -27,6 +27,7 @@
              
             "uniform sampler2D texture;",
             "uniform sampler2D alpha;",
+            "uniform sampler2D mask;",
             "uniform vec2 resolution;",
             "uniform vec2 mouse;",
             "uniform float r2;",
@@ -340,11 +341,13 @@
 
             "    vec3 col = texture2D(texture, vUv).rgb;",
             "    vec4 alpha = texture2D(alpha, vUv);",
-            "    if(dot(alpha.rgb, vec3(1.0))/3.0 > 0.1){",
+            "    vec4 mask = texture2D(mask, vUv);",
+            "    if((dot(mask.rgb, vec3(1.0))/3.0 > 0.1)){",
             "       col = mix( col, FINAL, dot(alpha.rgb, vec3(1.0))/3.0);",
             "    }",
 
             "    gl_FragColor = vec4(col, 1);",
+            // "    gl_FragColor = mask;",
             "}"
 
 

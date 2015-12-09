@@ -840,6 +840,7 @@ var CustomShaders = function(){
 		            "texture"  : { type: "t", value: null },
 		            "alpha"  : { type: "t", value: null },
 		            "origTex"  : { type: "t", value: null },
+		            "mask"  : { type: "t", value: null },
 		            "mouse"  : { type: "v2", value: null },
 		            "time"  : { type: "f", value: null },
 		            "r2"  : { type: "f", value: null },
@@ -862,6 +863,7 @@ var CustomShaders = function(){
 				"uniform sampler2D texture;",
 				"uniform sampler2D origTex;",
 				"uniform sampler2D alpha;",
+				"uniform sampler2D mask;",
 				"varying vec2 vUv;",
 				"uniform vec2 mouse;",
 				"uniform float r2;",
@@ -937,8 +939,9 @@ var CustomShaders = function(){
 			    // "	}",
 
 			    "	vec4 alpha = texture2D(alpha, vUv);",
+			    "	vec4 mask = texture2D(mask, vUv);",
 			    "	vec3 col = texture2D(texture, vUv).rgb;",
-			    "	if(dot(alpha.rgb, vec3(1.0))/3.0 > 0.1){",
+			    "	if(dot(mask.rgb, vec3(1.0))/3.0 < 0.00001){",
 			    "   	col = mix( col, rgb, dot(alpha.rgb, vec3(1.0))/3.0);",
 			    "	}",
 

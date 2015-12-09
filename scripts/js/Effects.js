@@ -77,6 +77,7 @@ var Effect = function(NAME){
 				break;	
 			case "flow":
 				this.shaders = this.flowEffect();
+				this.useMask = true;
 				break;
 			case "gradient":
 				this.shaders = this.gradientEffect();
@@ -259,22 +260,24 @@ var Effect = function(NAME){
 		var customShaders = new CustomShaders();
 		var denoiseShader = new DenoiseShader();
 		var customShaders2 = new CustomShaders();
+		var psdMaskShader = new PSDMaskShader();
 		var shaders = [
 	        customShaders.reposShader,
 	        customShaders.diffShader,
 	        customShaders.passShader,
-	        customShaders2.passShader,
+	        psdMaskShader,
 		]
 		return shaders;
 	}
 	this.flowEffect = function(){
 		var customShaders = new CustomShaders();
 		var customShaders2 = new CustomShaders();
+		var psdMaskShader = new PSDMaskShader();
 		var shaders = [
 	        customShaders.flowShader,
 	        customShaders.diffShader,
 	        customShaders.passShader,
-	        customShaders2.passShader,
+	        psdMaskShader,
 		]
 		return shaders;
 	}
@@ -293,12 +296,14 @@ var Effect = function(NAME){
 	this.warpFlowEffect = function(){
 		var customShaders = new CustomShaders();
 		var warpFlowShader = new WarpFlowShader();
+		var psdMaskShader = new PSDMaskShader();
 		var gradientShader = new GradientShader();
 		var shaders = [
 	        customShaders.flowShader,
 	        customShaders.diffShader,
 	        warpFlowShader,
-	        customShaders.passShader,
+	        // customShaders.passShader,
+	        psdMaskShader,
 		]
 		return shaders;
 	}	

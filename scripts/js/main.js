@@ -105,7 +105,7 @@ function createEffect(){
 	texture.minFilter = texture.magFilter = THREE.LinearFilter;
 
     effect = new Effect(currentEffectsSelector.options[currentEffectsSelector.selectedIndex].value);
-    // effect = new Effect("revert");
+    // effect = new Effect("repos");
     // effect = new Effect(effects[effectIndex]);
     effect.init();
     if(effect.useMask){
@@ -121,6 +121,14 @@ function createEffect(){
     if(fbMaterial)fbMaterial.dispose();
 	fbMaterial = new FeedbackMaterial(renderer, scene, camera, texture, effect.shaders);  
     fbMaterial.init();
+    if(effect.name == "neon glow"){
+		fbMaterial.setMask(THREE.ImageUtils.loadTexture("assets/textures/NeonGlowMask.jpg"));
+    } else if(effect.name == "rgb shift" || effect.name == "oil paint" || effect.name == "flow" || effect.name == "warp flow" || effect.name == "repos"){
+		fbMaterial.setMask(THREE.ImageUtils.loadTexture("assets/textures/mask2.jpg"));
+    } else if(effect.name == "warp"){
+		fbMaterial.setMask(THREE.ImageUtils.loadTexture("assets/textures/mask3.jpg"));
+    }
+
     // fbMaterial.scale(0.33333);
     for(var i = 0; i < fbMaterial.fbos.length; i++){
 		if(fbMaterial.fbos[i].material.uniforms["id"])fbMaterial.fbos[i].material.uniforms["id"].value = effect.blendId;
@@ -177,6 +185,13 @@ function createNewEffect(YN){
 
 		fbMaterial = new FeedbackMaterial(renderer, scene, camera, texture, effect.shaders);			
 	    fbMaterial.init();
+        if(effect.name == "neon glow"){
+    		fbMaterial.setMask(THREE.ImageUtils.loadTexture("assets/textures/NeonGlowMask.jpg"));
+        } else if(effect.name == "rgb shift" || effect.name == "oil paint" || effect.name == "flow" || effect.name == "warp flow" || effect.name == "repos"){
+    		fbMaterial.setMask(THREE.ImageUtils.loadTexture("assets/textures/mask2.jpg"));
+        } else if(effect.name == "warp"){
+    		fbMaterial.setMask(THREE.ImageUtils.loadTexture("assets/textures/mask3.jpg"));
+        }
 	    for(var i = 0; i < fbMaterial.fbos.length; i++){
 	    	if(fbMaterial.fbos[i].material.uniforms["id"])fbMaterial.fbos[i].material.uniforms["id"].value = effect.blendId;
 	    	if(fbMaterial.fbos[i].material.uniforms["origTex"])fbMaterial.fbos[i].material.uniforms["origTex"].value = origTex;
