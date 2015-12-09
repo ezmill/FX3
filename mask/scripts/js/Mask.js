@@ -107,7 +107,7 @@ function MaskShader(){
             "	vec4 white = vec4(texture2D(white, vUv).rgb, 1.0);",
             "	vec4 black = vec4(texture2D(black, vUv).rgb, 1.0);;",
             "	if(r < r2){",
-            "		float f = smoothstep(r2, r2 - 1.0, r);",
+            "		float f = smoothstep(r2, r2-1.0, r);",
             "		black = mix( black, white, f);",
             "	}",
             "	gl_FragColor = black;",

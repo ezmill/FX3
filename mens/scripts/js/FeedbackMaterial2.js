@@ -108,7 +108,10 @@ function FeedbackMaterial(RENDERER, SCENE, CAMERA, TEXTURE, SHADERS){
           if(this.fbos[i].material.uniforms["mouse"])this.fbos[i].material.uniforms["mouse"].value = new THREE.Vector2(mouse.x, mouse.y);
           if(this.material.uniforms["mouse"])this.material.uniforms["mouse"].value = new THREE.Vector2(mouse.x, mouse.y);
           if(this.material.uniforms["curveMap"])this.material.uniforms["curveMap"].value.needsUpdate = true;
+          if(this.fbos[i].material.uniforms["origTex"])this.fbos[i].material.uniforms["origTex"].value = origTex;
           if(this.material.uniforms["origTex"])this.material.uniforms["origTex"].value = origTex;
+          if(this.fbos[i].material.uniforms["seed"])this.fbos[i].material.uniforms["seed"].value = seed;
+          if(this.material.uniforms["seed"])this.material.uniforms["seed"].value = seed;
         }
     }
     this.dispose = function(){

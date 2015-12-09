@@ -2,6 +2,29 @@ var Effect = function(NAME){
 	this.shaders;
 	this.blendId;
 	this.name = NAME;
+	this.curves = [[[[0,0], [0.349, 0.448], [0.493, 0.626], [0.77, 0.814], [1,1]],
+					[[0, 0.171], [0.349, 0.394], [1,1]],
+					[[0, 0], [0.304, 0.27], [0.577, 0.423], [0.73, 0.715], [1,1]]],
+
+					[[[0, 0.235], [0.324, 0.369], [1,1]],
+					[[0.057, 0], [0.5, 0.473], [1,1]],
+					[[0,0], [0.646, 0.547], [1,1]]],
+
+					[[[0,0], [0.087, 0.141], [0.434, 0.478], [1,1]],
+					[[0,0], [0.661, 0.6], [1,1]],
+					[[0,0], [0.24, 0.235], [0.5, 0.483], [0.795, 0.9], [1,1]]],
+
+					[[[0,0], [0.287, 0.193], [0.718, 0.792], [1,1]],
+					[[0,0], [0.394, 0.374], [0.824, 0.879], [1,1]],
+					[[0,0], [0.205, 0.23], [0.725, 0.641], [1, 0.893]]],
+
+					[[[0,0], [0.626, 0.667], [0.755, 0.874], [1,1]],
+					[[0,0], [0.423, 0.621], [1,1]],
+					[[0,0], [0.66, 0.67], [1,1]]],
+
+					[[[0,0], [0.557, 0.413], [0.79, 0.755], [1,1]],
+					[[0,0], [0.666, 0.661], [0.889, 1]],
+					[[0,0], [0.156, 0.21], [0.468, 0.453], [1,1]]]]
 	this.init = function(){
 		switch(this.name){
 			case "warp":
@@ -16,6 +39,7 @@ var Effect = function(NAME){
 				this.shaders = this.darkenEffect();
 				break;	
 			case "revert":
+				seed = Math.random()*2 - 1;
 				this.shaders = this.revertEffect();
 				this.useMask = true;
 				break;
@@ -71,20 +95,24 @@ var Effect = function(NAME){
 				this.useMask = true;
 				break;
 			case "curves":
-				var curves = [[], [], []];
-				for(var i = 0; i < 3; i++){
-					for(var j = 0; j < (Math.floor(Math.random()) + 2); j++){
-						// for(var k = 0; k < 2; k++){
-							// curves[i][j].push(Math.random());							
-							curves[i][j] = [Math.random(), Math.random()];						
-						// }
-					}
-					console.log(curves[i]);
-				}
+				// var curves = [[], [], []];
+				// for(var i = 0; i < 3; i++){
+				// 	for(var j = 0; j < (Math.floor(Math.random()) + 2); j++){
+				// 		// for(var k = 0; k < 2; k++){
+				// 			// curves[i][j].push(Math.random());							
+				// 			curves[i][j] = [Math.random(), Math.random()];						
+				// 		// }
+				// 	}
+				// 	console.log(curves[i]);
+				// }
+				var curveNum = Math.floor(Math.random()*this.curves.length)
 				this.shaders = this.curvesEffect(
-					[[0, 0], [0.25, 0.2], [0.6, 0.7], [1, 1]],
-					[[0, 0], [1, 1]],
-					[[0, 0.19], [0.18, 0.47], [0.85, 0.8], [1, 1]]
+					this.curves[curveNum][0],
+					this.curves[curveNum][1],
+					this.curves[curveNum][2]
+					// [[0, 0], [0.25, 0.2], [0.6, 0.7], [1, 1]],
+					// [[0, 0], [1, 1]],
+					// [[0, 0.19], [0.18, 0.47], [0.85, 0.8], [1, 1]]
 					// curves[0],
 					// curves[1],
 					// curves[2]

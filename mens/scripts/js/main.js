@@ -3,6 +3,7 @@ var scene, camera, light, renderer;
 var renderSize = new THREE.Vector2(window.innerWidth, 1440*(window.innerWidth/2560));
 // var renderSize = new THREE.Vector2(window.innerWidth*0.25, 1440*(window.innerWidth*0.25/2560));
 // var renderSize = new THREE.Vector2(2560, 1440);
+var seed;
 var mouse = new THREE.Vector2(0.0,0.0);
 var mouseDown = false;
 var r2 = 0.0;
@@ -12,7 +13,7 @@ var origTex;
 var effect;
 var liveMode = false;
 var effects = [ "warp",
-				"color blur",
+				// "color blur",
 				"revert",
 				"rgb shift",
 				"oil paint",
@@ -21,7 +22,7 @@ var effects = [ "warp",
 				"flow",
 				"gradient",
 				"warp flow",
-				"stained glass",
+				// "stained glass",
 				"curves",
 				"neon glow"
 			]
@@ -32,7 +33,7 @@ var effects = [ "warp",
 var effectIndex = 0;
 var texture;
 var fbMaterial;
-var origTex = THREE.ImageUtils.loadTexture("assets/textures/test.jpg");
+var origTex = THREE.ImageUtils.loadTexture("assets/textures/mens.jpg");
 origTex.minFilter = origTex.magFilter = THREE.LinearFilter;
 var nextEffectsSelector = document.getElementById("nextEffectsSelector");
 var currentEffectsSelector = document.getElementById("effectsSelector");
@@ -100,7 +101,7 @@ function createEffect(){
 	noise.minFilter = noise.magFilter = THREE.LinearFilter;
 
 	if(texture)texture.dispose();
-	texture = THREE.ImageUtils.loadTexture("assets/textures/test.jpg");
+	texture = THREE.ImageUtils.loadTexture("assets/textures/mens.jpg");
 	texture.minFilter = texture.magFilter = THREE.LinearFilter;
 
     effect = new Effect(currentEffectsSelector.options[currentEffectsSelector.selectedIndex].value);
@@ -147,7 +148,7 @@ function createNewEffect(YN){
     img.onload = function(e) {
     	texture.dispose();
     	if(createNew){
-			texture = THREE.ImageUtils.loadTexture("assets/textures/test.jpg");
+			texture = THREE.ImageUtils.loadTexture("assets/textures/mens.jpg");
 			texture.minFilter = texture.magFilter = THREE.LinearFilter;
     	} else {
     		texture.image = img;    		
