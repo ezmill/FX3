@@ -121,6 +121,7 @@ function FeedbackMaterial(RENDERER, SCENE, CAMERA, TEXTURE, SHADERS){
     }
     this.setMask = function(tex){
         this.mask = tex;
+        // origTex = this.fbos[2].renderTarget.clone();
     }
     this.dispose = function(){
         for(var i = 0; i < this.fbos.length; i++){
