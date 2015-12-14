@@ -251,7 +251,7 @@ function onDocumentTouchMove( event ) {
 
 function updateMouse(event){
     if ( event.touches.length === 1 ) {
-        // event.preventDefault();
+        event.preventDefault();
 		mouse.x = ( event.touches[ 0 ].pageX / renderSize.x ) * 2 - 1;
 	    mouse.y = - ( event.touches[ 0 ].pageY / renderSize.y ) * 2 + 1;
 		mask.mouse = new THREE.Vector2(mouse.x, mouse.y);		
