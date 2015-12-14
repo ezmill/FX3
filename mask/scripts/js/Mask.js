@@ -32,6 +32,9 @@ function Mask(){
 		this.material.uniforms["black"].value = THREE.ImageUtils.loadTexture("assets/textures/black.jpg");
 		this.material.uniforms["black"].value.minFilter = THREE.LinearFilter;
 		this.material.uniforms["black"].value.magFilter = THREE.LinearFilter;
+		this.material.uniforms["img"].value = THREE.ImageUtils.loadTexture("assets/textures/mask3.jpg");
+		this.material.uniforms["img"].value.minFilter = THREE.LinearFilter;
+		this.material.uniforms["img"].value.magFilter = THREE.LinearFilter;
 		this.mesh = new THREE.Mesh(this.geometry, this.material);
 		this.scene.add(this.mesh);
 
@@ -72,7 +75,8 @@ function MaskShader(){
                 "time"  : { type: "f", value: 0.0 },
                 "r2"  : { type: "f", value: null },
                 "white"  : { type: "t", value: null },
-                "black"  : { type: "t", value: null }
+                "black"  : { type: "t", value: null },
+                "img" : { type: "t", value: null}
             }
         ]);
 
@@ -92,6 +96,7 @@ function MaskShader(){
             "uniform vec2 mouse;",
             "uniform sampler2D white;",
             "uniform sampler2D black;",
+            "uniform sampler2D img;",
             "uniform float r2;",
             "uniform float time;",
             "varying vec2 vUv;",
@@ -106,11 +111,17 @@ function MaskShader(){
             "	float a = atan(p.y, p.x);",
             "	vec4 white = vec4(texture2D(white, vUv).rgb, 1.0);",
             "	vec4 black = vec4(texture2D(black, vUv).rgb, 1.0);;",
+            "	vec4 img = vec4(texture2D(img, vUv).rgb, 1.0);;",
             "	if(r < r2){",
             "		float f = smoothstep(r2, r2-1.0, r);",
             "		black = mix( black, white, f);",
             "	}",
-            "	gl_FragColor = black;",
+            "	if(dot(img.rgb, vec3(1.0))/3.0 < 0.0){",
+            // "		gl_FragColor = mix(  img, black,  dot(img.rgb, vec3(1.0)));",
+            "		gl_FragColor = img;",
+            "	} else {",
+            "		gl_FragColor = black;",
+            "	}",
             // "    float t=time;",
             // "    if(t<0.1)",
             // "    {",

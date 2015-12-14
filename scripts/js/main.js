@@ -92,6 +92,11 @@ function init(){
 	document.addEventListener("mousedown", onMouseDown);
 	document.addEventListener("mouseup", onMouseUp);
 	document.addEventListener("keydown", onKeyDown);
+	document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+	document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+	document.addEventListener( 'touchend', onDocumentTouchEnd, false );
+	document.addEventListener( 'touchcancel', onDocumentTouchEnd, false );
+	document.addEventListener( 'touchleave', onDocumentTouchEnd, false );
 	animate();
 
 }
@@ -221,6 +226,34 @@ function onMouseDown(){
 	}
 }
 function onMouseUp(){
+	mouseDown = false;
+	r2 = 0;
+	// setTimeout(createNewEffect, 1000);
+	if(liveMode){
+		createNewEffect(false);
+	}
+}
+function onDocumentTouchStart( event ) {
+	mouseDown = true;
+    updateMouse(event);
+}
+
+function onDocumentTouchMove( event ) {
+	mouseDown = true;
+    updateMouse(event);
+}
+
+function updateMouse(event){
+    if ( event.touches.length === 1 ) {
+        event.preventDefault();
+		mouse.x = ( event.touches[ 0 ].pageX / renderSize.x ) * 2 - 1;
+	    mouse.y = - ( event.touches[ 0 ].pageY / renderSize.y ) * 2 + 1;
+		mask.mouse = new THREE.Vector2(mouse.x, mouse.y);		
+
+    }
+}
+    
+function onDocumentTouchEnd( event ) {
 	mouseDown = false;
 	r2 = 0;
 	// setTimeout(createNewEffect, 1000);
