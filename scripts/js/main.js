@@ -1,6 +1,11 @@
 var container;
 var scene, camera, light, renderer;
 var renderSize = new THREE.Vector2(window.innerWidth, 1440*(window.innerWidth/2560));
+if(window.innerWidth>1440*(window.innerHeight/2560)){
+	var renderSize = new THREE.Vector2(window.innerWidth, 1440*(window.innerWidth/2560));
+} else {
+	var renderSize = new THREE.Vector2(2560*(window.innerHeight/1440), window.innerHeight);
+}		
 // var renderSize = new THREE.Vector2(window.innerWidth*0.25, 1440*(window.innerWidth*0.25/2560));
 // var renderSize = new THREE.Vector2(2560, 1440);
 var seed;
@@ -97,6 +102,7 @@ function init(){
 	document.addEventListener( 'touchend', onDocumentTouchEnd, false );
 	document.addEventListener( 'touchcancel', onDocumentTouchEnd, false );
 	document.addEventListener( 'touchleave', onDocumentTouchEnd, false );
+	window.addEventListener( 'resize', onWindowResize, false );
 	animate();
 
 }
@@ -260,6 +266,21 @@ function onDocumentTouchEnd( event ) {
 	if(liveMode){
 		createNewEffect(false);
 	}
+}
+function onWindowResize(){
+	if(window.innerWidth>2560*(window.innerHeight/1440)){
+        renderSize = new THREE.Vector2(window.innerWidth, 1440*(window.innerWidth/2560));
+    } else {
+        renderSize = new THREE.Vector2(2560*(window.innerHeight/1440), window.innerHeight);
+    }
+	renderer.setSize( renderSize.x, renderSize.y );
+	camera.left = renderSize.x / - 2;
+	camera.right = renderSize.x / 2;
+	camera.top = renderSize.y / 2;
+	camera.bottom = renderSize.y / - 2;
+	mask.resize();
+	fbMaterial.setUniforms();
+	fbMaterial.resize();
 }
 function draw(){
 	time += 0.01;
