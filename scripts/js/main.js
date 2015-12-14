@@ -11,7 +11,7 @@ var time = 0.0;
 var mask;
 var origTex;
 var effect;
-var liveMode = false;
+var liveMode = true;
 var effects = [ "warp",
 				// "color blur",
 				"revert",
