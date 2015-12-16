@@ -124,6 +124,9 @@ var Effect = function(NAME){
 				this.shaders = this.neonGlowEffect();
 				this.useMask = true;
 				break;
+			case "glass":
+				this.shaders = this.glassEffect();
+				this.useMask = true;
 		}
 	}
 	this.warpEffect = function(){
@@ -366,6 +369,18 @@ var Effect = function(NAME){
 	        customShaders.diffShader2,
 	        customShaders.passShader,
 	        neonGlowShader
+		]
+		return shaders;
+	}		
+	this.glassEffect = function(){
+		var customShaders = new CustomShaders();
+		var customShaders2 = new CustomShaders();
+		var glassShader = new GlassShader();
+		var shaders = [
+	        customShaders2.passShader,
+	        customShaders.diffShader2,
+	        customShaders.passShader,
+	        glassShader
 		]
 		return shaders;
 	}				

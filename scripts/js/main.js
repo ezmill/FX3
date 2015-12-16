@@ -30,16 +30,22 @@ var effects = [ "warp",
 				// "stained glass",
 				"curves",
 				"neon glow"
+				// "glass"
 			]
 
 // if()
 // console.log(effects);
 //to-do splice in BASE shader at first index and then remove after starting
 var effectIndex = 0;
+shuffle(effects);
+insertRevert(effects);
+
 var texture;
 var fbMaterial;
 var origTex = THREE.ImageUtils.loadTexture("assets/textures/newtest.jpg");
 origTex.minFilter = origTex.magFilter = THREE.LinearFilter;
+origTex.wrapS = origTex.wrapT = THREE.RepeatWrapping;
+
 var nextEffectsSelector = document.getElementById("nextEffectsSelector");
 var currentEffectsSelector = document.getElementById("effectsSelector");
 var liveModeSelector = document.getElementById("liveMode");
@@ -114,6 +120,7 @@ function createEffect(){
 	if(texture)texture.dispose();
 	texture = THREE.ImageUtils.loadTexture("assets/textures/newtest.jpg");
 	texture.minFilter = texture.magFilter = THREE.LinearFilter;
+	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
     effect = new Effect(currentEffectsSelector.options[currentEffectsSelector.selectedIndex].value);
     // effect = new Effect("repos");

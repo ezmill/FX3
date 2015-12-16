@@ -16,6 +16,7 @@
 			/*margin: 5px;*/
 			padding: 10px;
 			background: rgba(0,0,0,0.5); 
+			display: none;
 		}
 		#liveModeContainer{
 			position: absolute;
@@ -24,6 +25,7 @@
 			/*margin: 5px;*/
 			padding: 10px;
 			background: rgba(0,0,0,0.5); 
+			display: none;
 		}
 		select{
 			display: block;
@@ -37,6 +39,7 @@
 		<label for="effectsSelector">Current Effect</label>
 		<select onchange="createEffect();"name="effectsSelector" id="effectsSelector">
 			<option value="warp">Warp</option>
+			<option value="glass">Glass</option>
 			<option value="revert">Revert</option>
 			<option value="rgb shift">RGB Shift</option>
 			<option value="oil paint">Oil Paint</option>
@@ -79,6 +82,7 @@
 	<script src="scripts/js/KuwaharaShader.js"></script>
 	<script src="scripts/js/SobelShader.js"></script>
 	<script src="scripts/js/RevertShader.js"></script>
+	<script src="scripts/js/GlassShader.js"></script>
 	<script src="scripts/js/BlendShader.js"></script>
 	<script src="scripts/js/NeonGlowShader.js"></script>
 	<script src="scripts/js/BarrelBlurShader.js"></script>
