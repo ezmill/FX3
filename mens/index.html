@@ -33,42 +33,12 @@
 </head>
 <body>
 	<div id="container"></div>
-	<div id="selectors">
-		<label for="effectsSelector">Current Effect</label>
-		<select onchange="createEffect();"name="effectsSelector" id="effectsSelector">
-			<option value="warp">Warp</option>
-			<option value="revert">Revert</option>
-			<option value="rgb shift">RGB Shift</option>
-			<option value="oil paint">Oil Paint</option>
-			<option value="median blur">Median Blur</option>
-			<option value="repos">Reposition</option>
-			<option value="flow">Flow</option>
-			<option value="gradient">Gradient</option>
-			<option value="warp flow">Warp Flow</option>
-			<option value="curves">Curves</option>
-			<option value="neon glow">Neon Glow</option>
-		</select>
-		<label for="nextEffectsSelector">Next Effect</label>
-		<select id="nextEffectsSelector" name="nextEffectsSelector">
-			<option value="warp">Warp</option>
-			<option value="revert">Revert</option>
-			<option value="rgb shift">RGB Shift</option>
-			<option value="oil paint">Oil Paint</option>
-			<option value="median blur">Median Blur</option>
-			<option value="repos">Reposition</option>
-			<option value="flow">Flow</option>
-			<option value="gradient">Gradient</option>
-			<option value="warp flow">Warp Flow</option>
-			<option value="curves">Curves</option>
-			<option value="neon glow">Neon Glow</option>
-		</select>
-		<button onclick="createNewEffect(false);">Go to next effect</button>
-	</div>
-	<div id="liveModeContainer">
+	
+<!-- 	<div id="liveModeContainer">
 		<input type="checkbox"  id="liveMode" name="liveMode">
 		<label for="liveMode">Live Mode</label>
 		<div id="order"></div>
-	</div>
+	</div> -->
 	<script src="scripts/js/three.min.js"></script>
 	<script src="scripts/js/BrushChunk.js"></script>
 	<script src="scripts/js/HeatHazeShader.js"></script>

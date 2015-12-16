@@ -17,7 +17,6 @@ var effects = [ "warp",
 				"revert",
 				"rgb shift",
 				"oil paint",
-				"median blur",
 				"repos",
 				"flow",
 				"gradient",
@@ -35,43 +34,36 @@ var texture;
 var fbMaterial;
 var origTex = THREE.ImageUtils.loadTexture("assets/textures/mens.jpg");
 origTex.minFilter = origTex.magFilter = THREE.LinearFilter;
-var nextEffectsSelector = document.getElementById("nextEffectsSelector");
-var currentEffectsSelector = document.getElementById("effectsSelector");
-var liveModeSelector = document.getElementById("liveMode");
-var liveModeContainer = document.getElementById("liveModeContainer");
-var orderContainer = document.getElementById("order");
-liveModeSelector.addEventListener("change", function(e){
-	liveMode = !liveMode;
-	if(liveMode){
-		effectIndex = -1;
+
+
+		// effectIndex = -1;
 		shuffle(effects);
 		// console.log("test");
 		insertRevert(effects);
 		// console.log(effects);
-		printEffects(effects);
-		createNewEffect(true);
-	}
-})
-currentEffectsSelector.addEventListener("change", function(){
-	liveModeSelector.checked = false;
-	liveMode = false;
-})
-nextEffectsSelector.addEventListener("change", function(){
-	liveModeSelector.checked = false;
-	liveMode = false;
-})
-function printEffects(arr){
-	while (orderContainer.hasChildNodes()) {
-		// if(liveModeContainer.lastChild.tagName == "div"){
-		    orderContainer.removeChild(orderContainer.lastChild);
-		// }
-	}
-	for(var i = 0; i < arr.length; i++){
-		var el = document.createElement("div");
-		el.innerHTML = arr[i];
-		orderContainer.appendChild(el);
-	}
-}
+		// printEffects(effects);
+		// createNewEffect(true);
+
+// currentEffectsSelector.addEventListener("change", function(){
+// 	liveModeSelector.checked = false;
+// 	liveMode = false;
+// })
+// nextEffectsSelector.addEventListener("change", function(){
+// 	liveModeSelector.checked = false;
+// 	liveMode = false;
+// })
+// function printEffects(arr){
+// 	while (orderContainer.hasChildNodes()) {
+// 		// if(liveModeContainer.lastChild.tagName == "div"){
+// 		    orderContainer.removeChild(orderContainer.lastChild);
+// 		// }
+// 	}
+// 	for(var i = 0; i < arr.length; i++){
+// 		var el = document.createElement("div");
+// 		el.innerHTML = arr[i];
+// 		orderContainer.appendChild(el);
+// 	}
+// }
 init();
 function init(){
 	scene = new THREE.Scene();
@@ -104,9 +96,9 @@ function createEffect(){
 	texture = THREE.ImageUtils.loadTexture("assets/textures/mens.jpg");
 	texture.minFilter = texture.magFilter = THREE.LinearFilter;
 
-    effect = new Effect(currentEffectsSelector.options[currentEffectsSelector.selectedIndex].value);
+    // effect = new Effect(currentEffectsSelector.options[currentEffectsSelector.selectedIndex].value);
     // effect = new Effect("revert");
-    // effect = new Effect(effects[effectIndex]);
+    effect = new Effect(effects[effectIndex]);
     effect.init();
     if(effect.useMask){
 		mask = new Mask();
@@ -133,13 +125,13 @@ function createEffect(){
 }	
 function createNewEffect(YN){
 	var createNew = YN;
-	if(liveMode){
+	// if(liveMode){
 		if(effectIndex == effects.length - 1){
 			effectIndex = 0;
 		} else {
 			effectIndex++;
 		}		
-	}
+	// }
 
     var blob = dataURItoBlob(renderer.domElement.toDataURL('image/jpg'));
     var file = window.URL.createObjectURL(blob);
@@ -147,20 +139,20 @@ function createNewEffect(YN){
     img.src = file;
     img.onload = function(e) {
     	texture.dispose();
-    	if(createNew){
-			texture = THREE.ImageUtils.loadTexture("assets/textures/mens.jpg");
-			texture.minFilter = texture.magFilter = THREE.LinearFilter;
-    	} else {
+    	// if(createNew){
+			// texture = THREE.ImageUtils.loadTexture("assets/textures/mens.jpg");
+			// texture.minFilter = texture.magFilter = THREE.LinearFilter;
+    	// } else {
     		texture.image = img;    		
-    	}
+    	// }
 
 	    // effect = new Effect(effects[effectIndex]);
 	    // effect = new Effect("warp flow");
-	    if(liveMode){
+	    // if(liveMode){
 		    effect = new Effect(effects[effectIndex]);
-	    } else {
-	    	effect = new Effect(nextEffectsSelector.options[nextEffectsSelector.selectedIndex].value);	    	
-	    }
+	    // } else {
+	    	// effect = new Effect(nextEffectsSelector.options[nextEffectsSelector.selectedIndex].value);	    	
+	    // }
 	    effect.init();
 	    // currentEffectsSelector.options[currentEffectsSelector.selectedIndex].innerHTML = nextEffectsSelector.options[nextEffectsSelector.selectedIndex].innerHTML;
 		if(effect.useMask){
@@ -209,9 +201,9 @@ function onMouseUp(){
 	mouseDown = false;
 	r2 = 0;
 	// setTimeout(createNewEffect, 1000);
-	if(liveMode){
+	// if(liveMode){
 		createNewEffect(false);
-	}
+	// }
 }
 function draw(){
 	time += 0.01;
